@@ -17,7 +17,7 @@ function Signup({ onSignup, onNavigateToLogin }) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Successful signup
-        onSignup();
+        onSignup(userCredential.user.email);
       })
       .catch((error) => {
         setError(error.message);

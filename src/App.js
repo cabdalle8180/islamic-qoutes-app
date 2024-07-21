@@ -12,30 +12,49 @@ import { QuotesProvider } from './contexts/QuotesContext';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [currentPage, setCurrentPage] = useState('login');
+  const [userEmail, setUserEmail] = useState('');
+  const [currentPage, setCurrentPage] = useState('home');
 
-  const handleLogin = () => {
+  const handleLogin = (email) => {
     setIsAuthenticated(true);
-    setCurrentPage('home');
+    setUserEmail(email);
+    scrollToSection('home');
   };
 
-  const handleSignup = () => {
+  const handleSignup = (email) => {
     setIsAuthenticated(true);
-    setCurrentPage('home');
+    setUserEmail(email);
+    scrollToSection('home');
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUserEmail('');
+  };
+
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    setCurrentPage(sectionId); // Update the currentPage state
   };
 
   if (!isAuthenticated) {
-    if (currentPage === 'login') {
-      return <Login onLogin={handleLogin} onNavigateToSignup={() => setCurrentPage('signup')} />;
-    } else if (currentPage === 'signup') {
-      return <Signup onSignup={handleSignup} onNavigateToLogin={() => setCurrentPage('login')} />;
-    }
+    return currentPage === 'login' ? (
+      <Login onLogin={handleLogin} onNavigateToSignup={() => setCurrentPage('signup')} />
+    ) : (
+      <Signup onSignup={handleSignup} onNavigateToLogin={() => setCurrentPage('login')} />
+    );
   }
 
   return (
     <QuotesProvider>
       <div className="min-h-screen bg-gradient-to-r from-blue-200 via-blue-300 to-blue-500 bg-cover bg-center flex flex-col">
-        {isAuthenticated && <Navbar activeSection={currentPage} setCurrentPage={setCurrentPage} />}
+        <Navbar
+          activeSection={currentPage}
+          setCurrentPage={scrollToSection}
+          isAuthenticated={isAuthenticated}
+          userEmail={userEmail}
+          handleLogout={handleLogout}
+        />
         <div className="flex-grow overflow-auto">
           <section id="home" className="min-h-screen">
             <Home />
