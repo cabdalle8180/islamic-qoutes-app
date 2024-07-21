@@ -63,8 +63,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 ### Deployment
 
-[islamic-qoutes-app-zd4p.vercel.app](https://vercel.com/abdallas-projects-4d07752a/islamic-qoutes-app-zd4p/5PR6rPbB8kzeatZ62EC6gkcAD6L9)
-
+https://islamic-qoutes-app-zd4p-al2okzoqo-abdallas-projects-4d07752a.vercel.app/
 
 ### `npm run build` fails to minify
 
